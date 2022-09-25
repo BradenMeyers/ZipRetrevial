@@ -1,3 +1,4 @@
+#include <Arduino.h>
 // Load Wi-Fi library
 #include <WiFi.h>
 #include <Preferences.h> 
