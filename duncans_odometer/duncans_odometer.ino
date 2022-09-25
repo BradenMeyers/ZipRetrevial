@@ -2,6 +2,8 @@ const int AIN = 34; // For phototransistor
 const int LED_OUT = 19;
 const int visible_led = 13;
 
+// This is a test comment
+
 // General variables
 unsigned long nowTime = 0;
 
