@@ -1,0 +1,43 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
+                "C:/Users/Braden/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                "C:/Users/Braden/.platformio/packages/toolchain-atmelavr/avr/include",
+                "C:/Users/Braden/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/cores/esp32",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_wifi/include",
+                "C:/Users/Braden/.platformio/packages/toolchain-xtensa-esp32/xtensa-esp32-elf/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_common/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_event/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/port/xtensa/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/libraries/WiFi",
+                "C:/Users/Braden/.platformio/packages/toolchain-xtensa-esp32/xtensa-esp32-elf/include/c++/8.4.0",
+                "C:/Users/Braden/.platformio/packages/toolchain-xtensa-esp32/xtensa-esp32-elf/include/c++/8.4.0/xtensa-esp32-elf",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/xtensa/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/xtensa/esp32/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include",
+                "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include/linux"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

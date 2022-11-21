@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #define Serial //
 const int pwm = 21;
 const int pwmChan = 1;
