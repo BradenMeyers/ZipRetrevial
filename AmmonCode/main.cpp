@@ -6,7 +6,7 @@
 #define READY 1
 #define ZIPPING 2
 #define RECOVERY 3
-#define ledChannel 0
+#define motorChannel 0
 #define resolution 8
 #define freq 5000
 #define RECOVERY_TO_READY_AFTER_BEEN_GRABBED_TIME 1700
@@ -207,7 +207,6 @@ byte motorDirection = 22;
 byte motor = 21;
 byte batteryMonitor = 34;
 byte handleBarSensor = 14;
-byte handleBarSensorValue = 1;
 byte state = READY;
 bool atTheTop = false;
 bool someonOnStateChanged = false;
@@ -309,6 +308,7 @@ bool isStalled(){
 }
 
 bool someoneOn(int timeLimit){
+  static byte handleBarSensorValue = 0;
   if(digitalRead(handleBarSensor) != handleBarSensorValue){
     if(handleBarTimer.getTime() > timeLimit){
       handleBarSensorValue = !handleBarSensorValue;
@@ -316,12 +316,12 @@ bool someoneOn(int timeLimit){
   }
   else{handleBarTimer.start();}
 
-  if(handleBarSensorValue){return false;}
-  return true;
+  if(handleBarSensorValue){return true;}  //adjust handlebar to be opposite with the pullup
+  return false;
 }
 
 void turnOnMotor(int speed){
-  ledcWrite(ledChannel, speed);
+  ledcWrite(motorChannel, speed);
   if(speed == 0){
     logger.log("MOTOR IS OFF------------------", true);
   }
@@ -332,7 +332,7 @@ void readyAtTheTop(){
   digitalWrite(readyLight, HIGH);
   readyTimeOutTimer.start();
   while(!someoneOn(1000)){
-    if(readyTimeOutTimer.getTime() > 120000 or wifiSkipToRecovery){
+    if(/* readyTimeOutTimer.getTime() > 120000 or */ wifiSkipToRecovery){
       state = RECOVERY;
       wifiSkipToRecovery = false;
       logger.log("Going up the zip line because ready timed out.", true);
@@ -360,10 +360,10 @@ void stopTheMotor(){
   turnOnMotor(0);
   digitalWrite(recoveryLight, LOW);
   digitalWrite(buzzer, LOW);
-  if(!wifiStopMotor){
+  /* if(!wifiStopMotor){
     if(atTheTopTimer.getTime() > 2000){countToTopLimitOffset += 2;}
     else if(atTheTopTimer.getTime() < 1000){countToTopLimitOffset -= 2;}
-  }
+  } */
   wifiStopMotor = false;
   recoveryTimer.start();
   while(recoveryTimer.getTime() < RECOVERY_TO_READY_AFTER_BEEN_GRABBED_TIME){}
@@ -423,12 +423,17 @@ void moveToTop(){
       logger.log(wifiStopMotorLog, true);
       break;
     }
-    if(isAtTheTop() and not atTheTop){
-      turnOnMotor(motorsMaxSpeed - 70);
-      logger.log("Turning motor down because were at the top", true);
-      atTheTop = true;
-      atTheTopTimer.start();
-    }
+    if(isStalled()){
+        logger.log(stalledLog, true);
+        stopTheMotor();
+        break;
+      }
+    // if(isAtTheTop() and not atTheTop){
+    //   turnOnMotor(motorsMaxSpeed - 70);
+    //   logger.log("Turning motor down because were at the top", true);
+    //   atTheTop = true;
+    //   atTheTopTimer.start();
+    // }
   }
   stopTheMotor();
 }
@@ -469,9 +474,9 @@ void setup(){
   pinMode(batteryMonitor, INPUT);
   digitalWrite(motor, LOW);
   digitalWrite(motorDirection, HIGH);
-  ledcSetup(ledChannel, freq, resolution);
-  ledcAttachPin(motor, ledChannel);
-  ledcWrite(ledChannel, 0);
+  ledcSetup(motorChannel, freq, resolution);
+  ledcAttachPin(motor, motorChannel);
+  ledcWrite(motorChannel, 0);
 
   WiFi.softAP(ssid, password);
   server.begin();
@@ -556,20 +561,13 @@ void setup(){
   });
 }
 
-void looop(){
+void loop(){
   updateVariableStrings();
   logger.log("Current state : ");
   logger.log(stateStr, true);
 
+
   if(state == READY){readyAtTheTop();}
   else if(state == ZIPPING){movingDown();}
   else if(state == RECOVERY){moveToTop();}
-}
-
-void loop(){
-  odometerSensorValue = digitalRead(handleBarSensor);
-  Serial.println(odometerSensorValue);
-  digitalWrite(odometerLed, HIGH);
-  delay(200);
-  digitalWrite(buzzer, HIGH);
 }
