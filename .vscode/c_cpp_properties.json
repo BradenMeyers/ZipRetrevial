@@ -3,7 +3,6 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}",
                 "${workspaceFolder}/**",
                 // "c:/Users/Braden/OneDrive/Documents/PlatformIO/Projects/ESP COPY AND UPLOAD/.pio/libdeps/esp32dev/ESP Async WebServer/src",
                 "C:/Users/Braden/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
